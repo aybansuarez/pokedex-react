@@ -11,10 +11,10 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/all" element={<Pokemons />} />
+        <Route path="/pokedex" element={<Pokemons />} />
         <Route path="/p/:name" element={<PokemonDetail />} />
         <Route path="/regions" element={<Regions />} />
-        <Route path="/r/:name" element={<RegionPokemons />} />
+        <Route path="/regions/:name" element={<RegionPokemons />} />
       </Routes>
     </Layout>
   );
