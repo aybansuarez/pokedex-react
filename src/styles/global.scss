@@ -8,10 +8,10 @@
 
 @layer utilities {
   html {
-    @apply font-montserrat;
+    @apply scroll-smooth font-montserrat;
   }
   .dex-layout {
-    @apply max-w-7xl px-3 sm:px-8 lg:px-20;
+    @apply max-w-7xl px-5 sm:px-8 lg:px-20;
   }
   .animate-once {
     animation-iteration-count: 1;
