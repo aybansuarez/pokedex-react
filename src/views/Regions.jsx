@@ -17,7 +17,9 @@ function Regions() {
       <Seo title="Regions" description="Pokémon" lang="en" meta={[]} />
       <div className="dex-layout mx-auto pt-10">
         <div className="flex flex-col gap-4">
-          <p className="text-6xl font-bold">Regions</p>
+          <p className="font-stencil_one text-4xl font-bold uppercase xs:text-5xl md:text-6xl">
+            Regions
+          </p>
           <p>
             The organized areas of the Pokémon world. The main difference
             between regions is the species of Pokémon that can be encountered
