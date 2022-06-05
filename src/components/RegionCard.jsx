@@ -48,7 +48,7 @@ function RegionCard({ id }) {
         </div>
       ) : (
         <div className="group relative select-none overflow-hidden">
-          <Link key={id} to={`/r/${data.main_region.name}`}>
+          <Link key={id} to={`/regions/${data.main_region.name}`}>
             <div
               className="absolute h-full w-full bg-cover bg-center bg-no-repeat brightness-[25%] duration-100 ease-in group-hover:scale-150 group-hover:brightness-[40%]"
               style={{
