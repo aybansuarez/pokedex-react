@@ -1,34 +1,114 @@
+import { Fragment } from "react";
 import { Link } from "react-router-dom";
+import { Popover, Transition } from "@headlessui/react";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
+
+import logo from "/src/assets/logo.png";
 import githubLogo from "/src/assets/github.svg";
 
-function Header() {
+export default function Example() {
   return (
-    <header className="select-none bg-slate-800">
-      <div className="dex-layout mx-auto h-20 w-full">
-        <div className="flex h-full w-full">
-          <div className="flex flex-1 justify-between text-white">
-            <Link to="/" className="flex items-center gap-x-2">
-              <p className="font-stencil_one text-4xl ">POKEDEX</p>
-            </Link>
-            <div className="hidden items-center gap-x-8 md:flex">
-              <Link to="/">
-                <p className="font-montserrat">Home</p>
-              </Link>
-              <Link to="/all">
-                <p className="font-montserrat">Master List</p>
-              </Link>
-              <Link to="/regions">
-                <p className="font-montserrat">Regions</p>
-              </Link>
-              <a href="https://github.com/aybansuarez">
-                <img src={githubLogo} />
+    <Popover className="relative z-50 bg-slate-900">
+      <div className="dex-layout mx-auto flex items-center justify-between py-6">
+        <div className="flex justify-start lg:w-0 lg:flex-1">
+          <Link to="/">
+            <img
+              className="h-12 w-auto brightness-0 invert filter"
+              src={logo}
+              alt=""
+            />
+          </Link>
+        </div>
+        <div className="-my-2 -mr-2 md:hidden">
+          <Popover.Button className="inline-flex items-center justify-center rounded-md border-2 border-slate-800 bg-slate-900 p-2">
+            <MenuIcon className="h-6 w-6 text-white" aria-hidden="true" />
+          </Popover.Button>
+        </div>
+        <Popover.Group
+          as="nav"
+          className="hidden items-center space-x-10 text-base font-medium text-white md:flex"
+        >
+          <Link to="/pokedex">Pokédex</Link>
+          <Link to="/regions">Regions</Link>
+          <a href="https://github.com/aybansuarez/pokedex-react">
+            <img src={githubLogo} />
+          </a>
+        </Popover.Group>
+      </div>
+
+      <Transition
+        as={Fragment}
+        enter="duration-200 ease-out"
+        enterFrom="opacity-0 scale-95"
+        enterTo="opacity-100 scale-100"
+        leave="duration-100 ease-in"
+        leaveFrom="opacity-100 scale-100"
+        leaveTo="opacity-0 scale-95"
+      >
+        <Popover.Panel
+          focus
+          className="absolute inset-x-0 top-0 origin-top-right transform p-2 transition md:hidden"
+        >
+          <div className="rounded-lg border border-slate-700 bg-gray-900 shadow-lg">
+            <div className="px-5 pt-5 pb-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <img
+                    className="h-12 w-auto brightness-0 invert filter"
+                    src={logo}
+                    alt=""
+                  />
+                </div>
+                <div className="-mr-2">
+                  <Popover.Button className="inline-flex items-center justify-center rounded-md bg-slate-900 p-2">
+                    <span className="sr-only">Close menu</span>
+                    <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                  </Popover.Button>
+                </div>
+              </div>
+              <div className="mt-6">
+                <nav className="grid grid-cols-1 gap-7">
+                  <Link
+                    className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
+                    to="/pokedex"
+                  >
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-indigo-500 text-white">
+                      {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
+                    </div>
+                    <div className="ml-4 text-base font-medium text-gray-900">
+                      Pokédex
+                    </div>
+                  </Link>
+                  <Link
+                    className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
+                    to="/regions"
+                  >
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-indigo-500 text-white">
+                      {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
+                    </div>
+                    <div className="ml-4 text-base font-medium text-gray-900">
+                      Regions
+                    </div>
+                  </Link>
+                </nav>
+              </div>
+            </div>
+            <div className="rounded-br-md rounded-bl-md bg-gray-800">
+              <a
+                className="group flex items-center px-5 py-1"
+                href="https://github.com/aybansuarez/pokedex-react"
+              >
+                <div className="flex h-8 w-10 flex-shrink-0 items-center justify-center rounded-md">
+                  <img src={githubLogo} alt="github" className="w-5" />
+                </div>
+                <div className="ml-4 text-sm font-medium text-white">
+                  Github
+                </div>
               </a>
             </div>
           </div>
-        </div>
-      </div>
-    </header>
+        </Popover.Panel>
+      </Transition>
+    </Popover>
   );
 }
-
-export default Header;
