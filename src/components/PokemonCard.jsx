@@ -16,8 +16,6 @@ function PokemonCard({ id, entry, name }) {
   );
 
   const [isImgLoaded, setIsImgLoaded] = useState(false);
-  const [pokemonType, setPokemonType] = useState(null);
-  const [pokemonID, setPokemonID] = useState(null);
   const [hovered, setHovered] = useState(false);
 
   useEffect(() => {
@@ -27,9 +25,6 @@ function PokemonCard({ id, entry, name }) {
         setIsImgLoaded(true);
       };
       img.src = data?.sprites.front_default;
-
-      setPokemonType(getPokemonType(data.types));
-      setPokemonID(getPokemonID(entry));
     }
   }, [isSuccess]);
 
@@ -61,7 +56,9 @@ function PokemonCard({ id, entry, name }) {
           >
             <div
               className={`absolute h-full w-full rounded-xl p-0 ${
-                hovered ? `type-${pokemonType}` : `type-${pokemonType}-light`
+                hovered
+                  ? `type-${getPokemonType(data.types)}`
+                  : `type-${getPokemonType(data.types)}-light`
               }`}
             />
             <div className="absolute right-0 z-30 m-1 flex gap-x-px">
@@ -78,8 +75,8 @@ function PokemonCard({ id, entry, name }) {
             <div className="relative flex h-full flex-1 justify-between overflow-hidden xs:flex-col">
               <div className="m-auto flex h-full w-full flex-1 items-center justify-center">
                 <img
-                  src={getTypeIcon(pokemonType)}
-                  alt={pokemonType}
+                  src={getTypeIcon(getPokemonType(data.types))}
+                  alt={getPokemonType(data.types)}
                   className="group-hover:animate-once absolute z-10 object-scale-down opacity-25 brightness-75 group-hover:animate-ping group-hover:opacity-100 xs:w-24 xl:w-32"
                 />
                 <img
@@ -93,9 +90,11 @@ function PokemonCard({ id, entry, name }) {
                   {name}
                 </p>
                 <span
-                  className={`type-${pokemonType}-dark rounded-full border border-transparent px-3 py-px text-xs text-white`}
+                  className={`rounded-full border border-transparent type-${getPokemonType(
+                    data.types
+                  )}-dark px-3 py-px text-xs text-white`}
                 >
-                  &#35;{pokemonID}
+                  &#35;{getPokemonID(entry)}
                 </span>
               </div>
             </div>
