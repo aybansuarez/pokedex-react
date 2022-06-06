@@ -1,9 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import Pokemons from "./views/Pokemons";
+import NationalPokemons from "./views/NationalPokemons";
 import Home from "./views/Home";
 import PokemonDetail from "./views/PokemonDetail";
-import Regions from "./views/Regions";
-import RegionPokemons from "./views/RegionPokemons";
+import Pokedexes from "./views/Pokedexes";
+import RegionalPokemons from "./views/RegionalPokemons";
 import Layout from "./components/Layout";
 
 function App() {
@@ -11,10 +11,10 @@ function App() {
     <Layout>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/pokedex" element={<Pokemons />} />
-        <Route path="/p/:name" element={<PokemonDetail />} />
-        <Route path="/regions" element={<Regions />} />
-        <Route path="/regions/:name" element={<RegionPokemons />} />
+        <Route path="/pokedex" element={<Pokedexes />} />
+        <Route path="/pokedex/national" element={<NationalPokemons />} />
+        <Route path="/pokedex/:name" element={<RegionalPokemons />} />
+        <Route path="/pokedex/p/:name" element={<PokemonDetail />} />
       </Routes>
     </Layout>
   );

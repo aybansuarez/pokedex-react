@@ -29,7 +29,9 @@ export default function Example() {
           className="hidden items-center space-x-10 text-base font-medium text-white md:flex"
         >
           <Link to="/pokedex">Pokédex</Link>
-          <Link to="/regions">Regions</Link>
+          <Link to="/items">Items</Link>
+          <Link to="/machines">Machines</Link>
+          <Link to="/berries">Berries</Link>
           <a href="https://github.com/aybansuarez/pokedex-react">
             <img src={githubLogo} />
           </a>
@@ -67,28 +69,42 @@ export default function Example() {
                 </div>
               </div>
               <div className="mt-6">
-                <nav className="grid grid-cols-1 gap-7">
+                <nav className="grid grid-cols-1 gap-7 text-white">
                   <Link
                     className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
                     to="/pokedex"
                   >
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-indigo-500 text-white">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white text-slate-900">
                       {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
                     </div>
-                    <div className="ml-4 text-base font-medium text-gray-900">
-                      Pokédex
-                    </div>
+                    <div className="ml-4">Pokédex</div>
                   </Link>
                   <Link
                     className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
-                    to="/regions"
+                    to="/items"
                   >
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-indigo-500 text-white">
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white text-slate-900">
                       {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
                     </div>
-                    <div className="ml-4 text-base font-medium text-gray-900">
-                      Regions
+                    <div className="ml-4">Items</div>
+                  </Link>
+                  <Link
+                    className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
+                    to="/machines"
+                  >
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white text-slate-900">
+                      {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
                     </div>
+                    <div className="ml-4">Machines</div>
+                  </Link>
+                  <Link
+                    className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
+                    to="/berries"
+                  >
+                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white text-slate-900">
+                      {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
+                    </div>
+                    <div className="ml-4">Berries</div>
                   </Link>
                 </nav>
               </div>
