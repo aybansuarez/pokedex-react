@@ -2,20 +2,15 @@ import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { SelectorIcon } from "@heroicons/react/solid";
 
+import logo from "/src/assets/logo.png";
 import { getIDFromURL } from "/src/utils/common";
 import { pokedexName } from "/src/utils/helper";
-import logo from "/src/assets/logo.png";
 
-function PokedexList({ list, entries, setPokedexID }) {
-  const pokedexes = list?.map((pokedex) => {
-    pokedex.id = getIDFromURL(pokedex.url);
-    return pokedex;
-  });
+function PokedexList({ pokedexList, pokemonEntries, setPokedexID }) {
+  const [selected, setSelected] = useState(pokedexList[0]);
 
-  const [selected, setSelected] = useState(pokedexes[0]);
-  console.log(selected);
   const handleChange = (e) => {
-    setPokedexID(e.id);
+    setPokedexID(getIDFromURL(e.url));
     setSelected(e);
   };
 
@@ -23,7 +18,7 @@ function PokedexList({ list, entries, setPokedexID }) {
     <Listbox value={selected} onChange={handleChange}>
       <div className="relative mx-auto mt-1 max-w-[300px]">
         <h1 className="mb-1 text-center text-xs">
-          Pokédex Entries: {entries || "---"}
+          Pokédex Entries: {pokemonEntries || "---"}
         </h1>
         <Listbox.Button className="relative w-full cursor-pointer rounded-lg border border-slate-300 bg-white py-2 text-center shadow-md focus:outline-none sm:text-sm">
           <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-2">
@@ -44,9 +39,9 @@ function PokedexList({ list, entries, setPokedexID }) {
           leaveTo="opacity-0"
         >
           <Listbox.Options className="absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-            {pokedexes.map((pokedex) => (
+            {pokedexList.map((pokedex) => (
               <Listbox.Option
-                key={pokedex.id}
+                key={getIDFromURL(pokedex.url)}
                 className={({ active }) =>
                   `relative cursor-pointer select-none text-center text-black ${
                     active ? "bg-slate-100 " : ""

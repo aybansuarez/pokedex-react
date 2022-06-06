@@ -1,10 +1,11 @@
+import { Fragment } from "react";
 import { useQuery } from "react-query";
-import { fetchPokemonDetails, fetchPokemonSpecies } from "/src/api/pokemon";
 import { useParams } from "react-router-dom";
+
+import { fetchPokemonDetails, fetchPokemonSpecies } from "/src/api/pokemon";
 import Seo from "/src/components/Seo";
 import Spinner from "/src/components/Spinner";
-import pokeball from "/src/assets/pokeball.svg";
-import { Fragment } from "react";
+
 import {
   getPokemonType,
   getPokemonDescription,
@@ -25,12 +26,13 @@ function PokemonDetail() {
     fetchPokemonSpecies(pokemonId),
     {
       enabled: !!pokemonId,
+      refetchOnWindowFocus: false,
     }
   );
 
   let content;
   if (status === "loading") {
-    content = <Spinner image={pokeball} />;
+    content = <Spinner />;
   }
 
   if (status === "success") {

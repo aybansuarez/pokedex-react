@@ -49,7 +49,7 @@ function PokemonCard({ id, entry, name }) {
         <div className="group mx-auto aspect-[3/1] w-full select-none xs:aspect-[2/3]">
           <Link
             key={id}
-            to={`/p/${name}`}
+            to={`/pokedex/p/${name}`}
             className="relative z-10 flex h-full hover:z-30 xs:flex-col"
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
