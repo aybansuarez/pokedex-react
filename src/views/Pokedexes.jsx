@@ -23,9 +23,9 @@ function Pokedexes() {
           <div className="group relative select-none overflow-hidden sm:col-span-2">
             <Link to={`/pokedex/national`}>
               <div
-                className="absolute h-full w-full bg-cover bg-center bg-no-repeat brightness-[20%] duration-100 ease-in group-hover:scale-150 group-hover:brightness-50"
+                className="absolute h-full w-full bg-cover bg-center bg-no-repeat brightness-[30%] duration-100 ease-in group-hover:scale-150 group-hover:brightness-50"
                 style={{
-                  backgroundImage: `url('/src/assets/regions/galar.webp')`,
+                  backgroundImage: `url('https://assets.pokemon.com//assets/cms2/img/misc/virtual-backgrounds/masters/forest.jpg')`,
                 }}
               />
               <div className="relative flex aspect-video w-full flex-col items-center p-5 sm:aspect-auto">
