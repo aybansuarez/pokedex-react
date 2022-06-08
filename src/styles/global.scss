@@ -8,7 +8,7 @@
 
 @layer utilities {
   html {
-    @apply scroll-smooth font-montserrat;
+    @apply overflow-hidden scroll-smooth font-montserrat;
   }
   .dex-layout {
     @apply max-w-7xl px-5 sm:px-8 lg:px-20;
@@ -17,4 +17,25 @@
     animation-iteration-count: 1;
     animation-fill-mode: forwards;
   }
+}
+
+html {
+  overflow: scroll;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+/* Optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #ff0000;
+}
+
+.pokedex-clip-path {
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 70% 50%, 20% 100%, 0 100%);
+}
+
+.pokedex-screen-clip-path {
+  clip-path: polygon(100% 0, 100% 100%, 20% 100%, 0 80%, 0 0);
 }

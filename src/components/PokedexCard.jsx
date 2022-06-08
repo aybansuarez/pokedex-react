@@ -52,7 +52,6 @@ function PokedexCard({ name }) {
     }
   }, [isRegionSuccess]);
 
-  console.log(isSuccess);
   return (
     <Fragment>
       {isLoading ? (
@@ -66,7 +65,7 @@ function PokedexCard({ name }) {
         <div className="group relative select-none overflow-hidden">
           <Link to={`/pokedex/${region?.name}`}>
             <div
-              className="absolute h-full w-full bg-cover bg-center bg-no-repeat brightness-[20%] duration-150 ease-in group-hover:scale-150 group-hover:brightness-50"
+              className="absolute h-full w-full bg-cover bg-center bg-no-repeat brightness-[30%] duration-150 ease-in group-hover:scale-150 group-hover:brightness-50"
               style={{
                 backgroundImage: `url('/src/assets/regions/${region?.name}.webp')`,
               }}
