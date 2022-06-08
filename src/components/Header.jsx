@@ -29,9 +29,6 @@ export default function Example() {
           className="hidden items-center space-x-10 text-base font-medium text-white md:flex"
         >
           <Link to="/pokedex">Pokédex</Link>
-          <Link to="/items">Items</Link>
-          <Link to="/machines">Machines</Link>
-          <Link to="/berries">Berries</Link>
           <a href="https://github.com/aybansuarez/pokedex-react">
             <img src={githubLogo} />
           </a>
@@ -78,33 +75,6 @@ export default function Example() {
                       {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
                     </div>
                     <div className="ml-4">Pokédex</div>
-                  </Link>
-                  <Link
-                    className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
-                    to="/items"
-                  >
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white text-slate-900">
-                      {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
-                    </div>
-                    <div className="ml-4">Items</div>
-                  </Link>
-                  <Link
-                    className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
-                    to="/machines"
-                  >
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white text-slate-900">
-                      {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
-                    </div>
-                    <div className="ml-4">Machines</div>
-                  </Link>
-                  <Link
-                    className="-m-3 flex items-center rounded-lg p-3 hover:bg-gray-50"
-                    to="/berries"
-                  >
-                    <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-md bg-white text-slate-900">
-                      {/* <solution.icon className="h-6 w-6" aria-hidden="true" /> */}
-                    </div>
-                    <div className="ml-4">Berries</div>
                   </Link>
                 </nav>
               </div>
