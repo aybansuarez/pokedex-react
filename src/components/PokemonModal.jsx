@@ -12,6 +12,7 @@ import {
   ChevronRightIcon,
   ChevronDownIcon,
   XIcon,
+  MenuIcon,
 } from "@heroicons/react/outline";
 
 function PokemonModal({ pokemon, isOpen, closeModal }) {
@@ -84,7 +85,7 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="aspect-[5/7] w-full max-w-lg transform overflow-hidden rounded-2xl bg-[#C10C0D] text-left align-middle shadow-xl transition-all">
-                <div className="flex h-full flex-col overflow-hidden">
+                <div className="flex h-full select-none flex-col overflow-hidden">
                   <div className="pokedex-clip-path relative flex aspect-[8/2] w-full bg-[#8B0000]">
                     <div className="w-flex flex h-full w-3/12 items-center justify-center">
                       <div className="flex aspect-square w-2/3 rounded-full bg-white">
@@ -112,7 +113,15 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                   </div>
                   <div className="my-6 flex flex-1 flex-col sm:my-8">
                     <div className="pokedex-screen-clip-path relative m-1 mx-auto flex aspect-video max-h-[320px] max-w-sm flex-1 items-center justify-center rounded-md bg-[#E0E1E1]">
-                      <div className="flex aspect-video w-9/12 justify-center rounded-xl bg-slate-900">
+                      <div className="absolute top-2 flex w-full justify-center gap-5 xs:top-3 xs:gap-8 sm:top-4">
+                        <div className="aspect-square w-2 rounded-full bg-[#8B0000] xs:w-3" />
+                        <div className="aspect-square w-2 rounded-full bg-[#8B0000] xs:w-3" />
+                      </div>
+                      <div className="absolute bottom-1 flex w-6/12 items-center justify-between xs:bottom-2 sm:w-8/12 md:bottom-2.5">
+                        <div className="aspect-square w-[8%] rounded-full bg-[#8B0000]" />
+                        <MenuIcon className="h-[12%] w-[12%]" />
+                      </div>
+                      <div className="flex aspect-video w-8/12 justify-center rounded-xl bg-slate-900 sm:w-9/12">
                         {isSuccess ? (
                           <img
                             alt={pokemon.name}
