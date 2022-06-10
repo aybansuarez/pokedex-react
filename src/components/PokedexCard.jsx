@@ -48,7 +48,7 @@ function PokedexCard({ name }) {
       img.onload = () => {
         setIsBgLoaded(true);
       };
-      img.src = `/src/assets/regions/${region?.name}.webp`;
+      img.src = `/src/assets/pokedex/${region?.name}.webp`;
     }
   }, [isRegionSuccess]);
 
@@ -67,7 +67,7 @@ function PokedexCard({ name }) {
             <div
               className="absolute h-full w-full bg-cover bg-center bg-no-repeat brightness-[30%] duration-150 ease-in group-hover:scale-150 group-hover:brightness-50"
               style={{
-                backgroundImage: `url('/src/assets/regions/${region?.name}.webp')`,
+                backgroundImage: `url('/src/assets/pokedex/${region?.name}.webp')`,
               }}
             />
             <div className="relative flex aspect-video w-full flex-col items-center p-5">

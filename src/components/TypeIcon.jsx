@@ -1,4 +1,4 @@
-import { getTypeIcon } from "../utils/getIcons";
+import { getTypeIcon } from "/src/utils/getIcons";
 import { Fragment, useState } from "react";
 import { getCapitalizedString } from "/src/utils/common";
 
