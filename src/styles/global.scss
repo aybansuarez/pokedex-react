@@ -8,7 +8,7 @@
 
 @layer utilities {
   html {
-    @apply overflow-hidden scroll-smooth font-montserrat;
+    @apply overflow-scroll overflow-x-hidden scroll-smooth font-montserrat;
   }
   .dex-layout {
     @apply max-w-7xl px-5 sm:px-8 lg:px-20;
@@ -19,10 +19,6 @@
   }
 }
 
-html {
-  overflow: scroll;
-  overflow-x: hidden;
-}
 ::-webkit-scrollbar {
   width: 0; /* Remove scrollbar space */
   background: transparent; /* Optional: just make scrollbar invisible */
@@ -37,5 +33,5 @@ html {
 }
 
 .pokedex-screen-clip-path {
-  clip-path: polygon(100% 0, 100% 100%, 20% 100%, 0 80%, 0 0);
+  clip-path: polygon(100% 0, 100% 100%, 15% 100%, 0 80%, 0 0);
 }
