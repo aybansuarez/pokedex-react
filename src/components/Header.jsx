@@ -8,20 +8,20 @@ import githubLogo from "/src/assets/github.svg";
 
 export default function Example() {
   return (
-    <Popover className="relative z-50 bg-slate-900">
+    <Popover className="relative z-50 select-none bg-slate-900">
       <div className="dex-layout mx-auto flex items-center justify-between py-6">
         <div className="flex justify-start lg:w-0 lg:flex-1">
           <Link to="/">
             <img
               className="h-12 w-auto brightness-0 invert filter"
               src={logo}
-              alt=""
+              alt="pokemon"
             />
           </Link>
         </div>
         <div className="-my-2 -mr-2 md:hidden">
           <Popover.Button className="inline-flex items-center justify-center rounded-md border-2 border-slate-800 bg-slate-900 p-2">
-            <MenuIcon className="h-6 w-6 text-white" aria-hidden="true" />
+            <MenuIcon className="h-6 w-6 text-white" />
           </Popover.Button>
         </div>
         <Popover.Group
@@ -30,7 +30,7 @@ export default function Example() {
         >
           <Link to="/pokedex">Pokédex</Link>
           <a href="https://github.com/aybansuarez/pokedex-react">
-            <img src={githubLogo} />
+            <img src={githubLogo} alt="github" />
           </a>
         </Popover.Group>
       </div>
@@ -55,13 +55,12 @@ export default function Example() {
                   <img
                     className="h-12 w-auto brightness-0 invert filter"
                     src={logo}
-                    alt=""
+                    alt="pokemon"
                   />
                 </div>
                 <div className="-mr-2">
                   <Popover.Button className="inline-flex items-center justify-center rounded-md bg-slate-900 p-2">
-                    <span className="sr-only">Close menu</span>
-                    <XIcon className="h-6 w-6 text-white" aria-hidden="true" />
+                    <XIcon className="h-6 w-6 text-white" />
                   </Popover.Button>
                 </div>
               </div>
