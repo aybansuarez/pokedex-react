@@ -14,7 +14,7 @@ import {
   MenuIcon,
 } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
-import questionMark from "/src/assets/question.svg";
+import questionMark from "/assets/question.svg";
 import { getIDFromURL, getPokemonID } from "/src/utils/common";
 import { getTypeIcon } from "/src/utils/getIcons";
 

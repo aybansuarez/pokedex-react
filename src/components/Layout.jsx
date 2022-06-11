@@ -1,5 +1,5 @@
 import Header from "./Header";
-import background from "/src/assets/background.png";
+import background from "/assets/background.png";
 
 function Layout({ children }) {
   return (

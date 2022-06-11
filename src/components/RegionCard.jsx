@@ -31,7 +31,7 @@ function RegionCard({ id }) {
       img.onload = () => {
         setIsBgLoaded(true);
       };
-      img.src = `/src/assets/regions/${data.main_region.name}.webp`;
+      img.src = `/assets/regions/${data.main_region.name}.webp`;
     }
   }, [data]);
 
@@ -52,7 +52,7 @@ function RegionCard({ id }) {
             <div
               className="absolute h-full w-full bg-cover bg-center bg-no-repeat brightness-[25%] duration-100 ease-in group-hover:scale-150 group-hover:brightness-[40%]"
               style={{
-                backgroundImage: `url('/src/assets/regions/${data.main_region.name}.webp')`,
+                backgroundImage: `url('/assets/regions/${data.main_region.name}.webp')`,
               }}
             />
             <div className="relative flex aspect-video w-full flex-col items-center p-5">

@@ -1,4 +1,4 @@
-import pokeball from "/src/assets/pokeball.svg";
+import pokeball from "/assets/pokeball.svg";
 
 function Spinner({ image, className }) {
   return (

@@ -25,7 +25,7 @@ function Pokedexes() {
               <div
                 className="absolute h-full w-full bg-cover bg-center bg-no-repeat brightness-[30%] duration-100 ease-in group-hover:scale-150 group-hover:brightness-50"
                 style={{
-                  backgroundImage: `url('/src/assets/pokedex/national.webp')`,
+                  backgroundImage: `url('/assets/pokedex/national.webp')`,
                 }}
               />
               <div className="relative flex aspect-video w-full flex-col items-center p-5 sm:aspect-auto">

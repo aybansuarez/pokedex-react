@@ -2,7 +2,7 @@ import { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { SelectorIcon } from "@heroicons/react/solid";
 
-import logo from "/src/assets/logo.png";
+import logo from "/assets/logo.png";
 import { getIDFromURL } from "/src/utils/common";
 import { pokedexName } from "/src/utils/helper";
 

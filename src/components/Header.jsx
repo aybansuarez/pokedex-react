@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { Popover, Transition } from "@headlessui/react";
 import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
-import logo from "/src/assets/logo.png";
-import githubLogo from "/src/assets/github.svg";
+import logo from "/assets/logo.png";
+import githubLogo from "/assets/github.svg";
 
 export default function Example() {
   return (
