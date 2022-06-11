@@ -41,9 +41,6 @@ function PokemonCard({
     <Fragment>
       {isLoading ? (
         <div className="relative flex aspect-[3/1] animate-pulse overflow-hidden rounded-xl bg-slate-200 xs:aspect-[2/3] xs:flex-col">
-          <div className="absolute right-0 z-20 m-1 flex gap-x-px">
-            <div className="aspect-square w-5 rounded-full bg-slate-300" />
-          </div>
           <div className="m-auto flex flex-1 items-center justify-center">
             <div className="absolute z-10 aspect-square w-32 rounded-full bg-slate-300 xs:block xs:w-24 xl:w-32" />
           </div>
@@ -72,17 +69,6 @@ function PokemonCard({
                     : `type-${getPokemonType(pokemon?.types)}-light`
                 }`}
               />
-              <div className="absolute right-0 z-30 m-1 flex gap-x-px">
-                {pokemon?.types?.map((result, index) => {
-                  return (
-                    <TypeIcon
-                      key={index}
-                      type={result.type.name}
-                      className="w-5 rounded-full border"
-                    />
-                  );
-                })}
-              </div>
               <div className="relative flex h-full flex-1 justify-between overflow-hidden xs:flex-col">
                 <div className="m-auto flex h-full w-full flex-1 items-center justify-center">
                   <img

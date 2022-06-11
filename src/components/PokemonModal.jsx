@@ -256,7 +256,6 @@ function PokemonModal({
                                 } else {
                                   speak({
                                     text: speech,
-                                    voice: voices[1],
                                     rate: 1.5,
                                   });
                                 }
@@ -281,7 +280,9 @@ function PokemonModal({
                                 <div
                                   key={index}
                                   className={`text-xs xs:text-base ${
-                                    activeTab === index ? "bg-green-700" : ""
+                                    activeTab === index
+                                      ? "bg-green-600 font-extrabold text-green-900"
+                                      : ""
                                   } first-of-type:rounded-tl-sm last-of-type:rounded-tr-sm
                                   `}
                                 >
@@ -334,15 +335,15 @@ function PokemonModal({
                               <table className="text-xs xs:text-base">
                                 <tbody>
                                   <tr>
-                                    <td className="w-6 text-center">H</td>
+                                    <td className="text-center">H</td>
                                     <td>
-                                      <p>{details?.height / 10} m</p>
+                                      <p>: {details?.height / 10} m</p>
                                     </td>
                                   </tr>
                                   <tr>
-                                    <td className="w-6 text-center">W</td>
+                                    <td className="text-center">W</td>
                                     <td>
-                                      <p>{details?.weight / 10} kg</p>
+                                      <p>: {details?.weight / 10} kg</p>
                                     </td>
                                   </tr>
                                 </tbody>
