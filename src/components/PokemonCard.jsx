@@ -7,7 +7,14 @@ import { getPokemonType, getPokemonID } from "/src/utils/common";
 import { getTypeIcon } from "/src/utils/getIcons";
 import PokemonModal from "./PokemonModal";
 
-function PokemonCard({ id, entry, name }) {
+function PokemonCard({
+  id,
+  entry,
+  name,
+  openModal,
+  setPokemonID,
+  setPokemonEntry,
+}) {
   const {
     data: pokemon,
     isLoading: pokemonIsLoading,
@@ -18,7 +25,6 @@ function PokemonCard({ id, entry, name }) {
 
   const [isImgLoaded, setIsImgLoaded] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     if (isSuccess) {
@@ -31,14 +37,6 @@ function PokemonCard({ id, entry, name }) {
   }, [isSuccess]);
 
   const isLoading = pokemonIsLoading || (!isImgLoaded && !isSuccess);
-
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
 
   return (
     <Fragment>
@@ -60,7 +58,11 @@ function PokemonCard({ id, entry, name }) {
           <div className="group mx-auto aspect-[3/1] w-full select-none xs:aspect-[2/3]">
             <div
               className="relative z-10 flex h-full cursor-pointer hover:z-30 xs:flex-col"
-              onClick={openModal}
+              onClick={() => {
+                openModal();
+                setPokemonID(id);
+                setPokemonEntry(entry);
+              }}
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
             >
@@ -110,11 +112,6 @@ function PokemonCard({ id, entry, name }) {
               </div>
             </div>
           </div>
-          <PokemonModal
-            pokemon={pokemon}
-            isOpen={isOpen}
-            closeModal={closeModal}
-          />
         </Fragment>
       )}
     </Fragment>

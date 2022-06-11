@@ -5,6 +5,7 @@ import { useQuery } from "react-query";
 import { fetchPokedex } from "/src/api/pokedex";
 import NoPokemonFound from "/src/components/NoPokemonFound";
 import PokemonCard from "/src/components/PokemonCard";
+import PokemonModal from "/src/components/PokemonModal";
 import SearchBar from "/src/components/SearchBar";
 import Seo from "/src/components/Seo";
 import Spinner from "/src/components/Spinner";
@@ -17,6 +18,9 @@ function NationalPokemons() {
   const [items, setItems] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [pokemonFound, setPokemonFound] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [pokemonID, setPokemonID] = useState(null);
+  const [pokemonEntry, setPokemonEntry] = useState(null);
 
   const {
     data: pokedex,
@@ -45,6 +49,14 @@ function NationalPokemons() {
   useEffect(() => {
     setPokemonFound(filterPokemons(data, searchQuery).length);
   }, [searchQuery]);
+
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
 
   return (
     <Fragment>
@@ -76,6 +88,9 @@ function NationalPokemons() {
                         id={pokemonId}
                         entry={pokemonId}
                         name={result.pokemon_species.name}
+                        openModal={openModal}
+                        setPokemonID={setPokemonID}
+                        setPokemonEntry={setPokemonEntry}
                         key={pokemonId}
                       />
                     );
@@ -104,6 +119,9 @@ function NationalPokemons() {
                       id={pokemonId}
                       entry={pokemonId}
                       name={result.pokemon_species.name}
+                      openModal={openModal}
+                      setPokemonID={setPokemonID}
+                      setPokemonEntry={setPokemonEntry}
                       key={pokemonId}
                     />
                   );
@@ -113,6 +131,15 @@ function NationalPokemons() {
           </Fragment>
         ) : null}
       </div>
+      <PokemonModal
+        pokemonID={pokemonID}
+        entryNumber={pokemonEntry}
+        entries={data}
+        isOpen={isOpen}
+        closeModal={closeModal}
+        setPokemonID={setPokemonID}
+        setPokemonEntry={setPokemonEntry}
+      />
     </Fragment>
   );
 }

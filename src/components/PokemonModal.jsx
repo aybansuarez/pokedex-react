@@ -1,7 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState, useEffect, useCallback } from "react";
-import { fetchPokemonSpecies } from "/src/api/pokemon";
-import { fetchPokemonDetails } from "/src/api/pokemon";
+import { fetchPokemonSpecies, fetchPokemonDetails } from "/src/api/pokemon";
 import { useQuery } from "react-query";
 import Spinner from "/src/components/Spinner";
 import { getPokemonDescription, getPokemonGenus } from "/src/utils/common";
@@ -18,19 +17,64 @@ import { Link } from "react-router-dom";
 import questionMark from "/src/assets/question.svg";
 import { getIDFromURL } from "/src/utils/common";
 
-function PokemonModal({ pokemon, isOpen, closeModal }) {
+function PokemonModal({
+  pokemonID,
+  entryNumber,
+  entries,
+  isOpen,
+  closeModal,
+  setPokemonID,
+  setPokemonEntry,
+}) {
   const { speak, speaking, cancel, voices } = useSpeechSynthesis();
   const [speech, setSpeech] = useState("");
   const [isFront, setIsFront] = useState(true);
 
-  const { data: species, isSuccess } = useQuery(
-    ["species", pokemon.id],
-    fetchPokemonSpecies(pokemon.id),
+  const { data: details } = useQuery(
+    ["details", pokemonID],
+    fetchPokemonDetails(pokemonID),
     {
-      enabled: !!pokemon.id && isOpen,
+      enabled: !!pokemonID && isOpen,
       refetchOnWindowFocus: false,
     }
   );
+
+  const { data: species, isSuccess } = useQuery(
+    ["species", pokemonID],
+    fetchPokemonSpecies(pokemonID),
+    {
+      enabled: !!pokemonID && isOpen,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+  const handlePrevPokemon = () => {
+    const index = entries.findIndex((entry) => {
+      return entry.entry_number == entryNumber;
+    });
+
+    if (index) {
+      const newPokemon = entries[index - 1];
+      const id = getIDFromURL(newPokemon.pokemon_species.url);
+      setPokemonEntry(newPokemon.entry_number);
+      setPokemonID(id);
+      cancel();
+    }
+  };
+
+  const handleNextPokemon = () => {
+    const index = entries.findIndex((entry) => {
+      return entry.entry_number == entryNumber;
+    });
+
+    if (index < entries.length - 1) {
+      const newPokemon = entries[index + 1];
+      const id = getIDFromURL(newPokemon.pokemon_species.url);
+      setPokemonEntry(newPokemon.entry_number);
+      setPokemonID(id);
+      cancel();
+    }
+  };
 
   useEffect(() => {
     if (species) {
@@ -61,7 +105,7 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-slate-900 bg-opacity-80" />
+          <div className="fixed inset-0 bg-black bg-opacity-90" />
         </Transition.Child>
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-4 text-center">
@@ -138,13 +182,13 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                       <div className="flex aspect-video w-8/12 justify-center rounded-xl bg-slate-900 sm:w-9/12">
                         {isSuccess ? (
                           <img
-                            alt={pokemon.name}
+                            alt={details?.name}
                             className="aspect-square rounded-xl bg-slate-900"
                             src={
                               isFront
-                                ? pokemon.sprites.front_default
-                                : pokemon.sprites.back_default
-                                ? pokemon.sprites.back_default
+                                ? details?.sprites.front_default
+                                : details?.sprites.back_default
+                                ? details?.sprites.back_default
                                 : questionMark
                             }
                           />
@@ -158,7 +202,7 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                         <div className="flex flex-1 justify-between">
                           <button className="w-1/4 rounded-full">
                             <Link
-                              to={`/pokedex/p/${pokemon.name}`}
+                              to={`/pokedex/p/${details?.name}`}
                               className="flex aspect-square w-full items-center justify-center rounded-full bg-slate-900 text-2xl font-bold text-white xs:text-4xl"
                             >
                               A
@@ -187,7 +231,7 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                               }}
                               className="h-fit w-12 rounded-xl bg-blue-900 py-1 text-[10px] uppercase text-white xs:w-16 xs:text-xs"
                             >
-                              {isFront ? "Front" : "Back"}
+                              IMG
                             </button>
                           </div>
                         </div>
@@ -199,7 +243,10 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                         <div className="grid aspect-square grid-rows-3">
                           <div className="grid grid-cols-3">
                             <div />
-                            <button className="rounded bg-slate-900">
+                            <button
+                              className="rounded bg-slate-900"
+                              onClick={handlePrevPokemon}
+                            >
                               <ChevronUpIcon className="mx-auto w-4 text-white" />
                             </button>
                             <div />
@@ -215,7 +262,10 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                           </div>
                           <div className="grid grid-cols-3">
                             <div />
-                            <button className="rounded bg-slate-900">
+                            <button
+                              className="rounded bg-slate-900"
+                              onClick={handleNextPokemon}
+                            >
                               <ChevronDownIcon className="mx-auto w-4 text-white" />
                             </button>
                             <div />

@@ -5,6 +5,7 @@ import { useParams } from "react-router-dom";
 import { fetchPokedex } from "/src/api/pokedex";
 import { fetchRegion } from "/src/api/region";
 import NoPokemonFound from "/src/components/NoPokemonFound";
+import PokemonModal from "/src/components/PokemonModal";
 import PokemonCard from "/src/components/PokemonCard";
 import PokedexList from "/src/components/PokedexList";
 import SearchBar from "/src/components/SearchBar";
@@ -22,6 +23,9 @@ function RegionalPokemons() {
   const [pokedexID, setPokedexID] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [pokemonFound, setPokemonFound] = useState(null);
+  const [isOpen, setIsOpen] = useState(false);
+  const [pokemonID, setPokemonID] = useState(null);
+  const [pokemonEntry, setPokemonEntry] = useState(null);
 
   const {
     data: region,
@@ -67,6 +71,14 @@ function RegionalPokemons() {
     }
   }, [searchQuery]);
 
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
   return (
     <Fragment>
       <Seo title={title} description="Pokémon" lang="en" meta={[]} />
@@ -104,6 +116,9 @@ function RegionalPokemons() {
                         entry={pokemon.entry_number}
                         name={pokemon.pokemon_species.name}
                         key={pokemon.entry_number}
+                        openModal={openModal}
+                        setPokemonID={setPokemonID}
+                        setPokemonEntry={setPokemonEntry}
                       />
                     );
                   }
@@ -114,6 +129,15 @@ function RegionalPokemons() {
           )}
         </Fragment>
       </div>
+      <PokemonModal
+        pokemonID={pokemonID}
+        entryNumber={pokemonEntry}
+        entries={pokedex?.pokemon_entries}
+        isOpen={isOpen}
+        closeModal={closeModal}
+        setPokemonID={setPokemonID}
+        setPokemonEntry={setPokemonEntry}
+      />
     </Fragment>
   );
 }
