@@ -53,7 +53,7 @@ function NationalPokemons() {
   return (
     <Fragment>
       <Seo title="National Pokédex" description="Pokémon" lang="en" meta={[]} />
-      <div className="dex-layout relative mx-auto w-full py-10">
+      <div className="srz-layout relative py-10">
         {isLoading ? (
           <div className="flex h-[calc(100vh-6rem)] items-center justify-center">
             <Spinner />

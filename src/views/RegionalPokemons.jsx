@@ -74,7 +74,7 @@ function RegionalPokemons() {
   return (
     <Fragment>
       <Seo title={title} description="Pokémon" lang="en" meta={[]} />
-      <div className="dex-layout mx-auto py-10">
+      <div className="srz-layout py-10">
         <Fragment>
           {isRegionSuccess ? (
             <Fragment>

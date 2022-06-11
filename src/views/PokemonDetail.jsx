@@ -43,7 +43,7 @@ function PokemonDetail() {
 
     content = (
       <div className={`type-${pokemonType}-light`}>
-        <div className="dex-layout mx-auto">
+        <div className="srz-layout">
           <div className="flex">
             <div className="flex-1">
               <p className="text-2xl">#{pokemonID}</p>

@@ -11,8 +11,8 @@
   html {
     @apply overflow-scroll overflow-x-hidden scroll-smooth font-montserrat;
   }
-  .dex-layout {
-    @apply max-w-7xl px-5 sm:px-8 lg:px-20;
+  .srz-layout {
+    @apply mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-20;
   }
   .animate-once {
     animation-iteration-count: 1;

@@ -15,7 +15,7 @@ function Regions() {
   return (
     <Fragment>
       <Seo title="Regions" description="Pokémon" lang="en" meta={[]} />
-      <div className="dex-layout mx-auto pt-10">
+      <div className="srz-layout pt-10">
         <div className="flex flex-col gap-4">
           <p className="font-stencil_one text-4xl font-bold uppercase xs:text-5xl md:text-6xl">
             Regions

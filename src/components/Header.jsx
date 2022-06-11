@@ -9,7 +9,7 @@ import githubLogo from "/src/assets/github.svg";
 export default function Example() {
   return (
     <Popover className="relative z-50 select-none bg-slate-900">
-      <div className="dex-layout mx-auto flex items-center justify-between py-6">
+      <div className="srz-layout flex items-center justify-between py-6">
         <div className="flex justify-start lg:w-0 lg:flex-1">
           <Link to="/">
             <img
