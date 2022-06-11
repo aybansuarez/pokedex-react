@@ -22,7 +22,7 @@ function PokemonModal({
   entryNumber,
   entries,
   isOpen,
-  closeModal,
+  setIsOpen,
   setPokemonID,
   setPokemonEntry,
 }) {
@@ -93,7 +93,7 @@ function PokemonModal({
         className="relative z-50"
         onClose={() => {
           cancel();
-          closeModal();
+          setIsOpen(false);
         }}
       >
         <Transition.Child
@@ -151,7 +151,7 @@ function PokemonModal({
                       className="absolute top-2.5 right-6 flex h-5 w-5 items-center justify-center rounded-full border border-red-500 bg-red-500 xs:top-6"
                       onClick={() => {
                         cancel();
-                        closeModal();
+                        setIsOpen(false);
                       }}
                     >
                       <XIcon className="h-4 w-4 text-red-900" />

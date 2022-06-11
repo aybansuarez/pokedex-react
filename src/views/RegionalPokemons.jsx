@@ -71,14 +71,6 @@ function RegionalPokemons() {
     }
   }, [searchQuery]);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
   return (
     <Fragment>
       <Seo title={title} description="Pokémon" lang="en" meta={[]} />
@@ -116,7 +108,7 @@ function RegionalPokemons() {
                         entry={pokemon.entry_number}
                         name={pokemon.pokemon_species.name}
                         key={pokemon.entry_number}
-                        openModal={openModal}
+                        setIsOpen={setIsOpen}
                         setPokemonID={setPokemonID}
                         setPokemonEntry={setPokemonEntry}
                       />
@@ -134,7 +126,7 @@ function RegionalPokemons() {
         entryNumber={pokemonEntry}
         entries={pokedex?.pokemon_entries}
         isOpen={isOpen}
-        closeModal={closeModal}
+        setIsOpen={setIsOpen}
         setPokemonID={setPokemonID}
         setPokemonEntry={setPokemonEntry}
       />

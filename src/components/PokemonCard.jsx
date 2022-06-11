@@ -5,13 +5,12 @@ import TypeIcon from "/src/components/TypeIcon";
 import { Fragment, useState, useEffect } from "react";
 import { getPokemonType, getPokemonID } from "/src/utils/common";
 import { getTypeIcon } from "/src/utils/getIcons";
-import PokemonModal from "./PokemonModal";
 
 function PokemonCard({
   id,
   entry,
   name,
-  openModal,
+  setIsOpen,
   setPokemonID,
   setPokemonEntry,
 }) {
@@ -59,7 +58,7 @@ function PokemonCard({
             <div
               className="relative z-10 flex h-full cursor-pointer hover:z-30 xs:flex-col"
               onClick={() => {
-                openModal();
+                setIsOpen(true);
                 setPokemonID(id);
                 setPokemonEntry(entry);
               }}

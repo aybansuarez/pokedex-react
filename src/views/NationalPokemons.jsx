@@ -50,14 +50,6 @@ function NationalPokemons() {
     setPokemonFound(filterPokemons(data, searchQuery).length);
   }, [searchQuery]);
 
-  function closeModal() {
-    setIsOpen(false);
-  }
-
-  function openModal() {
-    setIsOpen(true);
-  }
-
   return (
     <Fragment>
       <Seo title="National Pokédex" description="Pokémon" lang="en" meta={[]} />
@@ -88,7 +80,7 @@ function NationalPokemons() {
                         id={pokemonId}
                         entry={pokemonId}
                         name={result.pokemon_species.name}
-                        openModal={openModal}
+                        setIsOpen={setIsOpen}
                         setPokemonID={setPokemonID}
                         setPokemonEntry={setPokemonEntry}
                         key={pokemonId}
@@ -119,7 +111,7 @@ function NationalPokemons() {
                       id={pokemonId}
                       entry={pokemonId}
                       name={result.pokemon_species.name}
-                      openModal={openModal}
+                      setIsOpen={setIsOpen}
                       setPokemonID={setPokemonID}
                       setPokemonEntry={setPokemonEntry}
                       key={pokemonId}
@@ -136,7 +128,7 @@ function NationalPokemons() {
         entryNumber={pokemonEntry}
         entries={data}
         isOpen={isOpen}
-        closeModal={closeModal}
+        setIsOpen={setIsOpen}
         setPokemonID={setPokemonID}
         setPokemonEntry={setPokemonEntry}
       />
