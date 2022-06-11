@@ -15,7 +15,8 @@ import {
 } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
 import questionMark from "/src/assets/question.svg";
-import { getIDFromURL } from "/src/utils/common";
+import { getIDFromURL, getPokemonID } from "/src/utils/common";
+import { getTypeIcon } from "/src/utils/getIcons";
 
 function PokemonModal({
   pokemonID,
@@ -29,6 +30,7 @@ function PokemonModal({
   const { speak, speaking, cancel, voices } = useSpeechSynthesis();
   const [speech, setSpeech] = useState("");
   const [isFront, setIsFront] = useState(true);
+  const [activeTab, setActiveTab] = useState(0);
 
   const { data: details } = useQuery(
     ["details", pokemonID],
@@ -76,6 +78,42 @@ function PokemonModal({
     }
   };
 
+  const labels = ["Pkmn", "Type/s", "H/W"];
+
+  const handleNextDetail = () => {
+    if (activeTab === labels.length - 1) {
+      setActiveTab(0);
+    } else {
+      setActiveTab((prev) => prev + 1);
+    }
+  };
+
+  const handlePrevDetail = () => {
+    if (activeTab) {
+      setActiveTab((prev) => prev - 1);
+    } else {
+      setActiveTab(labels.length - 1);
+    }
+  };
+
+  const arrowKeyHandler = useCallback(
+    ({ key }) => {
+      if (key == "ArrowUp") {
+        handlePrevPokemon();
+      }
+      if (key == "ArrowDown") {
+        handleNextPokemon();
+      }
+      if (key == "ArrowLeft") {
+        handlePrevDetail();
+      }
+      if (key == "ArrowRight") {
+        handleNextDetail();
+      }
+    },
+    [entryNumber, pokemonID, activeTab]
+  );
+
   useEffect(() => {
     if (species) {
       setSpeech(
@@ -85,6 +123,14 @@ function PokemonModal({
       );
     }
   }, [species]);
+
+  useEffect(() => {
+    window.addEventListener("keydown", arrowKeyHandler);
+
+    return () => {
+      window.removeEventListener("keydown", arrowKeyHandler);
+    };
+  }, [pokemonID, entryNumber, activeTab]);
 
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -125,7 +171,9 @@ function PokemonModal({
                       <div className="flex aspect-square w-2/3 rounded-full bg-white">
                         <div
                           className={`m-1 flex w-full justify-center rounded-full bg-[#166B9F] ${
-                            speaking ? "animate-pulse" : ""
+                            speaking
+                              ? "animate-pulse bg-green-500"
+                              : "bg-[#166B9F]"
                           }`}
                         ></div>
                       </div>
@@ -147,15 +195,6 @@ function PokemonModal({
                         }`}
                       />
                     </div>
-                    <button
-                      className="absolute top-2.5 right-6 flex h-5 w-5 items-center justify-center rounded-full border border-red-500 bg-red-500 xs:top-6"
-                      onClick={() => {
-                        cancel();
-                        setIsOpen(false);
-                      }}
-                    >
-                      <XIcon className="h-4 w-4 text-red-900" />
-                    </button>
                   </div>
                   <div className="my-6 flex flex-1 flex-col sm:my-8">
                     <div className="pokedex-screen-clip-path relative m-1 mx-auto flex aspect-video max-h-[320px] max-w-sm flex-1 items-center justify-center rounded-md bg-[#E0E1E1]">
@@ -200,7 +239,7 @@ function PokemonModal({
                     <div className="mx-3 flex flex-1 gap-5 xs:mx-5 sm:mx-10 sm:gap-8">
                       <div className="flex flex-1 flex-col justify-around xs:w-6/12 sm:w-5/12">
                         <div className="flex flex-1 justify-between">
-                          <button className="w-1/4 rounded-full">
+                          <button className="w-1/4 rounded-full focus:outline-none">
                             <Link
                               to={`/pokedex/p/${details?.name}`}
                               className="flex aspect-square w-full items-center justify-center rounded-full bg-slate-900 text-2xl font-bold text-white xs:text-4xl"
@@ -235,8 +274,81 @@ function PokemonModal({
                             </button>
                           </div>
                         </div>
-                        <div className="flex h-full flex-1 items-center justify-center rounded-lg bg-green-500 font-mono text-2xl font-bold uppercase">
-                          {species?.name}
+                        <div className="flex h-full flex-1 flex-col items-center justify-center rounded-lg border-4 border-double border-green-600 bg-green-500 uppercase">
+                          <div className="grid w-full grid-cols-3 rounded-t-lg border-b border-green-600 text-center text-lg">
+                            {labels.map((label, index) => {
+                              return (
+                                <div
+                                  key={index}
+                                  className={`text-xs xs:text-base ${
+                                    activeTab === index ? "bg-green-700" : ""
+                                  } first-of-type:rounded-tl-sm last-of-type:rounded-tr-sm
+                                  `}
+                                >
+                                  {label}
+                                </div>
+                              );
+                            })}
+                          </div>
+                          <div className="flex h-full flex-1 items-center">
+                            <div
+                              className={`flex h-full flex-col text-center ${
+                                activeTab === 0 ? "block" : "hidden"
+                              }`}
+                            >
+                              <p className="flex flex-1 items-end justify-center text-xs xs:text-base">
+                                #{getPokemonID(entryNumber)}
+                              </p>
+                              <p className="flex-1 text-base font-bold xs:text-xl">
+                                {species?.name}
+                              </p>
+                            </div>
+                            <div
+                              className={`${
+                                activeTab === 1 ? "block" : "hidden"
+                              }`}
+                            >
+                              {details?.types.map((result, index) => {
+                                return (
+                                  <div
+                                    key={index}
+                                    className="flex items-center gap-x-1"
+                                  >
+                                    <img
+                                      src={getTypeIcon(result.type.name)}
+                                      alt={result.type.name}
+                                      className="h-3 w-3 rounded-full border border-green-900 xs:h-5 xs:w-5"
+                                    />
+                                    <p className="text-xs xs:text-base">
+                                      {result.type.name}
+                                    </p>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                            <div
+                              className={`${
+                                activeTab === 2 ? "block" : "hidden"
+                              }`}
+                            >
+                              <table className="text-xs xs:text-base">
+                                <tbody>
+                                  <tr>
+                                    <td className="w-6 text-center">H</td>
+                                    <td>
+                                      <p>{details?.height / 10} m</p>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td className="w-6 text-center">W</td>
+                                    <td>
+                                      <p>{details?.weight / 10} kg</p>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
                         </div>
                       </div>
                       <div className="my-auto w-1/4">
@@ -244,7 +356,7 @@ function PokemonModal({
                           <div className="grid grid-cols-3">
                             <div />
                             <button
-                              className="rounded bg-slate-900"
+                              className="rounded bg-slate-900 focus:outline-none"
                               onClick={handlePrevPokemon}
                             >
                               <ChevronUpIcon className="mx-auto w-4 text-white" />
@@ -252,18 +364,24 @@ function PokemonModal({
                             <div />
                           </div>
                           <div className="grid grid-cols-3">
-                            <button className="rounded bg-slate-900">
+                            <button
+                              className="rounded bg-slate-900 focus:outline-none"
+                              onClick={handlePrevDetail}
+                            >
                               <ChevronLeftIcon className="mx-auto w-4 text-white" />
                             </button>
-                            <button className="rounded bg-slate-900"></button>
-                            <button className="rounded bg-slate-900">
-                              <ChevronRightIcon className="mx-auto w-4 text-white" />
+                            <div className="cursor-pointer rounded bg-slate-900"></div>
+                            <button className="rounded bg-slate-900 focus:outline-none">
+                              <ChevronRightIcon
+                                className="mx-auto w-4 text-white"
+                                onClick={handleNextDetail}
+                              />
                             </button>
                           </div>
                           <div className="grid grid-cols-3">
                             <div />
                             <button
-                              className="rounded bg-slate-900"
+                              className="rounded bg-slate-900 focus:outline-none"
                               onClick={handleNextPokemon}
                             >
                               <ChevronDownIcon className="mx-auto w-4 text-white" />
