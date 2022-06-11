@@ -1,11 +1,11 @@
 import { Dialog, Transition } from "@headlessui/react";
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useCallback } from "react";
 import { fetchPokemonSpecies } from "/src/api/pokemon";
+import { fetchPokemonDetails } from "/src/api/pokemon";
 import { useQuery } from "react-query";
 import Spinner from "/src/components/Spinner";
 import { getPokemonDescription, getPokemonGenus } from "/src/utils/common";
 import { useSpeechSynthesis } from "react-speech-kit";
-import { PlayIcon, StopIcon } from "@heroicons/react/solid";
 import {
   ChevronUpIcon,
   ChevronLeftIcon,
@@ -14,22 +14,14 @@ import {
   XIcon,
   MenuIcon,
 } from "@heroicons/react/outline";
+import { Link } from "react-router-dom";
+import questionMark from "/src/assets/question.svg";
+import { getIDFromURL } from "/src/utils/common";
 
 function PokemonModal({ pokemon, isOpen, closeModal }) {
   const { speak, speaking, cancel, voices } = useSpeechSynthesis();
   const [speech, setSpeech] = useState("");
-  const [imageType, setImageType] = useState("front");
-  const [image, setImage] = useState(pokemon.sprites.front_default);
-
-  const changeImage = (imgType) => {
-    if (imgType == "front") {
-      setImageType("front");
-      setImage(pokemon.sprites.front_default);
-    } else {
-      setImageType("back");
-      setImage(pokemon.sprites.back_default);
-    }
-  };
+  const [isFront, setIsFront] = useState(true);
 
   const { data: species, isSuccess } = useQuery(
     ["species", pokemon.id],
@@ -42,8 +34,6 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
 
   useEffect(() => {
     if (species) {
-      console.log(species);
-      console.log(pokemon);
       setSpeech(
         `${species?.name}. The ${getPokemonGenus(
           species?.genera
@@ -90,19 +80,31 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                     <div className="w-flex flex h-full w-3/12 items-center justify-center">
                       <div className="flex aspect-square w-2/3 rounded-full bg-white">
                         <div
-                          className={`m-1 w-full rounded-full bg-[#166B9F] ${
+                          className={`m-1 flex w-full justify-center rounded-full bg-[#166B9F] ${
                             speaking ? "animate-pulse" : ""
                           }`}
                         ></div>
                       </div>
                     </div>
                     <div className="relative top-6 flex w-full flex-1 items-start gap-x-2">
-                      <div className="aspect-square w-[6%] rounded-full bg-[#E32A49]" />
-                      <div className="aspect-square w-[6%] rounded-full bg-[#F5DB2C]" />
-                      <div className="aspect-square w-[6%] rounded-full bg-[#4EAE5C]" />
+                      <div
+                        className={`aspect-square w-[6%] rounded-full bg-[#E32A49] brightness-50 ${
+                          speaking ? "animate-blink" : ""
+                        }`}
+                      />
+                      <div
+                        className={`aspect-square w-[6%] rounded-full bg-[#F5DB2C] brightness-50 ${
+                          speaking ? "animation-delay-300 animate-blink" : ""
+                        }`}
+                      />
+                      <div
+                        className={`aspect-square w-[6%] rounded-full bg-[#4EAE5C] brightness-50 ${
+                          speaking ? "animation-delay-600 animate-blink" : ""
+                        }`}
+                      />
                     </div>
                     <button
-                      className="absolute top-6 right-6 flex h-5 w-5 items-center justify-center rounded-full border border-red-500 bg-red-500"
+                      className="absolute top-2.5 right-6 flex h-5 w-5 items-center justify-center rounded-full border border-red-500 bg-red-500 xs:top-6"
                       onClick={() => {
                         cancel();
                         closeModal();
@@ -114,11 +116,23 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                   <div className="my-6 flex flex-1 flex-col sm:my-8">
                     <div className="pokedex-screen-clip-path relative m-1 mx-auto flex aspect-video max-h-[320px] max-w-sm flex-1 items-center justify-center rounded-md bg-[#E0E1E1]">
                       <div className="absolute top-2 flex w-full justify-center gap-5 xs:top-3 xs:gap-8 sm:top-4">
-                        <div className="aspect-square w-2 rounded-full bg-[#8B0000] xs:w-3" />
-                        <div className="aspect-square w-2 rounded-full bg-[#8B0000] xs:w-3" />
+                        <div
+                          className={`aspect-square w-2 rounded-full bg-[#8B0000] brightness-50 xs:w-3 ${
+                            speaking ? "animate-blink" : ""
+                          }`}
+                        />
+                        <div
+                          className={`aspect-square w-2 rounded-full bg-[#8B0000] brightness-50 xs:w-3 ${
+                            speaking ? "animate-blink" : ""
+                          }`}
+                        />
                       </div>
                       <div className="absolute bottom-1 flex w-6/12 items-center justify-between xs:bottom-2 sm:w-8/12 md:bottom-2.5">
-                        <div className="aspect-square w-[8%] rounded-full bg-[#8B0000]" />
+                        <div
+                          className={`aspect-square w-[8%] rounded-full bg-[#8B0000] brightness-50 ${
+                            speaking ? "animate-blink" : ""
+                          }`}
+                        />
                         <MenuIcon className="h-[12%] w-[12%]" />
                       </div>
                       <div className="flex aspect-video w-8/12 justify-center rounded-xl bg-slate-900 sm:w-9/12">
@@ -126,7 +140,13 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                           <img
                             alt={pokemon.name}
                             className="aspect-square rounded-xl bg-slate-900"
-                            src={image}
+                            src={
+                              isFront
+                                ? pokemon.sprites.front_default
+                                : pokemon.sprites.back_default
+                                ? pokemon.sprites.back_default
+                                : questionMark
+                            }
                           />
                         ) : (
                           <Spinner className="w-1/2" />
@@ -134,71 +154,72 @@ function PokemonModal({ pokemon, isOpen, closeModal }) {
                       </div>
                     </div>
                     <div className="mx-3 flex flex-1 gap-5 xs:mx-5 sm:mx-10 sm:gap-8">
-                      <div className="my-auto w-2/12 -translate-y-1/2">
-                        <button
-                          className="aspect-square rounded-full "
-                          onClick={() => {
-                            if (speaking) {
-                              cancel();
-                            } else {
-                              speak({
-                                text: speech,
-                                voice: voices[1],
-                                rate: 1.5,
-                              });
-                            }
-                          }}
-                        >
-                          {speaking ? (
-                            <StopIcon className="w-full text-slate-900" />
-                          ) : (
-                            <PlayIcon className="w-full text-slate-900" />
-                          )}
-                        </button>
-                      </div>
-                      <div className="flex w-5/12 flex-col justify-around xs:w-6/12 sm:w-5/12">
-                        <div className="flex justify-evenly">
-                          <button
-                            onClick={() => {
-                              changeImage("front");
-                            }}
-                            className={`h-2 w-12 rounded-full  ${
-                              imageType == "front"
-                                ? "bg-slate-800"
-                                : "bg-slate-400"
-                            }`}
-                          />
-                          <button
-                            onClick={() => {
-                              changeImage("back");
-                            }}
-                            className={`h-2 w-12 rounded-full  ${
-                              imageType == "back"
-                                ? "bg-slate-800"
-                                : "bg-slate-400"
-                            }`}
-                          />
+                      <div className="flex flex-1 flex-col justify-around xs:w-6/12 sm:w-5/12">
+                        <div className="flex flex-1 justify-between">
+                          <button className="w-1/4 rounded-full">
+                            <Link
+                              to={`/pokedex/p/${pokemon.name}`}
+                              className="flex aspect-square w-full items-center justify-center rounded-full bg-slate-900 text-2xl font-bold text-white xs:text-4xl"
+                            >
+                              A
+                            </Link>
+                          </button>
+                          <div className="flex items-center justify-end gap-1 xs:gap-3">
+                            <button
+                              className="h-fit w-12 rounded-xl bg-red-900 py-1 text-[10px] uppercase text-white xs:w-16 xs:text-xs"
+                              onClick={() => {
+                                if (speaking) {
+                                  cancel();
+                                } else {
+                                  speak({
+                                    text: speech,
+                                    voice: voices[1],
+                                    rate: 1.5,
+                                  });
+                                }
+                              }}
+                            >
+                              {speaking ? "Stop" : "Speak"}
+                            </button>
+                            <button
+                              onClick={() => {
+                                setIsFront(!isFront);
+                              }}
+                              className="h-fit w-12 rounded-xl bg-blue-900 py-1 text-[10px] uppercase text-white xs:w-16 xs:text-xs"
+                            >
+                              {isFront ? "Front" : "Back"}
+                            </button>
+                          </div>
                         </div>
-                        <div className="font-mono">
-                          <p className="rounded-lg bg-green-500 py-6 text-center font-bold uppercase shadow-inner xs:py-8 xs:text-xl sm:py-10">
-                            {species?.name}
-                          </p>
+                        <div className="flex h-full flex-1 items-center justify-center rounded-lg bg-green-500 font-mono text-2xl font-bold uppercase">
+                          {species?.name}
                         </div>
                       </div>
-                      <div className="my-auto flex-1">
-                        <div className="grid aspect-square rotate-45 grid-cols-2 overflow-hidden rounded-full bg-black">
-                          <button className="bg-black hover:bg-black">
-                            <ChevronUpIcon className="mx-auto w-5 -rotate-45 text-white" />
-                          </button>
-                          <button className="bg-black hover:bg-black">
-                            <ChevronRightIcon className="mx-auto w-5 -rotate-45 text-white" />
-                          </button>
-                          <button className="bg-black hover:bg-black">
-                            <ChevronLeftIcon className="mx-auto w-5 -rotate-45 text-white" />
-                          </button>
-                          <button className="bg-black hover:bg-black">
-                            <ChevronDownIcon className="mx-auto w-5 -rotate-45 text-white" />
-                          </button>
+                      <div className="my-auto w-1/4">
+                        <div className="grid aspect-square grid-rows-3">
+                          <div className="grid grid-cols-3">
+                            <div />
+                            <button className="rounded bg-slate-900">
+                              <ChevronUpIcon className="mx-auto w-4 text-white" />
+                            </button>
+                            <div />
+                          </div>
+                          <div className="grid grid-cols-3">
+                            <button className="rounded bg-slate-900">
+                              <ChevronLeftIcon className="mx-auto w-4 text-white" />
+                            </button>
+                            <button className="rounded bg-slate-900"></button>
+                            <button className="rounded bg-slate-900">
+                              <ChevronRightIcon className="mx-auto w-4 text-white" />
+                            </button>
+                          </div>
+                          <div className="grid grid-cols-3">
+                            <div />
+                            <button className="rounded bg-slate-900">
+                              <ChevronDownIcon className="mx-auto w-4 text-white" />
+                            </button>
+                            <div />
+                          </div>
                         </div>
                       </div>
                     </div>

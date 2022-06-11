@@ -10,7 +10,18 @@ module.exports = {
       ...defaultTheme.screens,
     },
     extend: {
+      keyframes: {
+        blink: {
+          "0%, 100%": {
+            filter: "brightness(.5)",
+          },
+          "50%": {
+            filter: "brightness(2)",
+          },
+        },
+      },
       animation: {
+        blink: "blink 1.5s linear infinite",
         bounce_fast: "bounce .7s infinite;",
       },
       fontFamily: {
