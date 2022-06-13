@@ -103,7 +103,7 @@ function RegionalPokemons() {
           ) : (
             <Fragment>
               <SearchBar onSearch={setSearchQuery} />
-              <div className="grid grid-cols-1 gap-2 pt-10 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+              <div className="grid grid-cols-1 gap-2 pt-10 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5">
                 {filterPokemons(pokedex?.pokemon_entries, searchQuery).map(
                   (pokemon) => {
                     return (

@@ -77,9 +77,9 @@ function PokemonCard({
                     className="group-hover:animate-once absolute z-10 object-scale-down opacity-25 brightness-75 group-hover:animate-ping group-hover:opacity-100 xs:w-24 xl:w-32"
                   />
                   <img
-                    className="relative z-20 scale-90 object-contain group-hover:scale-100 xs:scale-105 group-hover:xs:top-6 group-hover:xs:scale-125 group-hover:xs:animate-bounce_fast"
+                    className="relative z-20 w-3/4 scale-90 object-contain group-hover:scale-100 xs:scale-105 group-hover:xs:top-6 group-hover:xs:scale-125 group-hover:xs:animate-bounce_fast"
                     alt={name}
-                    src={pokemon?.sprites?.front_default}
+                    src={`https://img.pokemondb.net/sprites/home/normal/${name}.png`}
                   />
                 </div>
                 <div className="z-20 flex flex-1 flex-col items-start justify-center gap-y-2 xs:mb-5 xs:flex-none xs:items-center xs:gap-y-1">

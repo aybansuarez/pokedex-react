@@ -72,7 +72,7 @@ function NationalPokemons() {
             <SearchBar onSearch={setSearchQuery} />
             {searchQuery ? (
               <Fragment>
-                <div className="grid grid-cols-1 gap-2 pt-10 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
+                <div className="grid grid-cols-1 gap-2 pt-10 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5">
                   {filterPokemons(data, searchQuery).map((result) => {
                     const pokemonId = getIDFromURL(result.pokemon_species.url);
                     return (
@@ -92,12 +92,12 @@ function NationalPokemons() {
               </Fragment>
             ) : (
               <InfiniteScroll
-                className="grid grid-cols-1 gap-2 pt-10 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6"
+                className="grid grid-cols-1 gap-2 pt-10 xs:grid-cols-3 sm:grid-cols-4 md:grid-cols-5"
                 loadMore={loadMorePokemon}
                 hasMore={indexPos < data.length}
                 loader={
                   <div
-                    className="col-span-1 mt-4 flex h-full w-full justify-center xs:col-span-3 sm:col-span-4 md:col-span-5 lg:col-span-6"
+                    className="col-span-1 mt-4 flex h-full w-full justify-center xs:col-span-3 sm:col-span-4 md:col-span-5"
                     key={0}
                   >
                     <Spinner className="w-12" />
