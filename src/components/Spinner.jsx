@@ -1,6 +1,6 @@
 import pokeball from "/assets/pokeball.svg";
 
-function Spinner({ image, className }) {
+function Spinner({ className }) {
   return (
     <img className={`animate-spin ${className}`} src={pokeball} alt="spinner" />
   );

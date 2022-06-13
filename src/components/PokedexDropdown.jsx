@@ -6,7 +6,7 @@ import logo from "/assets/logo.png";
 import { getIDFromURL } from "/src/utils/common";
 import { pokedexName } from "/src/utils/helper";
 
-function PokedexList({ pokedexList, pokemonEntries, setPokedexID }) {
+function PokedexDropdown({ pokedexList, pokemonEntries, setPokedexID }) {
   const [selected, setSelected] = useState(pokedexList[0]);
 
   const handleChange = (e) => {
@@ -74,4 +74,4 @@ function PokedexList({ pokedexList, pokemonEntries, setPokedexID }) {
   );
 }
 
-export default PokedexList;
+export default PokedexDropdown;

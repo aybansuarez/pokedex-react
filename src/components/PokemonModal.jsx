@@ -10,7 +10,6 @@ import {
   ChevronLeftIcon,
   ChevronRightIcon,
   ChevronDownIcon,
-  XIcon,
   MenuIcon,
 } from "@heroicons/react/outline";
 import { Link } from "react-router-dom";
@@ -27,7 +26,7 @@ function PokemonModal({
   setPokemonID,
   setPokemonEntry,
 }) {
-  const { speak, speaking, cancel, voices } = useSpeechSynthesis();
+  const { speak, speaking, cancel } = useSpeechSynthesis();
   const [speech, setSpeech] = useState("");
   const [isFront, setIsFront] = useState(true);
   const [activeTab, setActiveTab] = useState(0);
@@ -197,7 +196,7 @@ function PokemonModal({
                     </div>
                   </div>
                   <div className="my-6 flex flex-1 flex-col sm:my-8">
-                    <div className="pokedex-screen-clip-path relative m-1 mx-auto flex aspect-video max-h-[320px] max-w-sm flex-1 items-center justify-center rounded-md bg-[#E0E1E1]">
+                    <div className="pokedex-screen-clip-path relative m-1 mx-auto flex aspect-video w-3/4 flex-1 items-center justify-center rounded-md bg-[#E0E1E1]">
                       <div className="absolute top-2 flex w-full justify-center gap-5 xs:top-3 xs:gap-8 sm:top-4">
                         <div
                           className={`aspect-square w-2 rounded-full bg-[#8B0000] brightness-50 xs:w-3 ${
@@ -218,7 +217,7 @@ function PokemonModal({
                         />
                         <MenuIcon className="h-[12%] w-[12%]" />
                       </div>
-                      <div className="flex aspect-video w-8/12 justify-center rounded-xl bg-slate-900 sm:w-9/12">
+                      <div className="flex aspect-video w-9/12 justify-center rounded-xl bg-slate-900">
                         {isSuccess ? (
                           <img
                             alt={details?.name}
