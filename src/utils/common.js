@@ -43,6 +43,14 @@ export const getGenerationName = (names) => {
   return undefined;
 };
 
+export const getRegionName = (names) => {
+  if (names) {
+    const region = names.find((e) => e.language.name === "en");
+    return region.name;
+  }
+  return undefined;
+};
+
 export const filterPokemons = (pokemonList, searchTerm) => {
   const filtered = pokemonList.filter((entry) => {
     const pokemonName = entry.pokemon_species.name;

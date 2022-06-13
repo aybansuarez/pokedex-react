@@ -12,13 +12,8 @@ function Pokedexes() {
 
   return (
     <Fragment>
-      <Seo title="Pokédex" description="Pokémon" lang="en" meta={[]} />
-      <div className="srz-layout pt-10">
-        <div className="flex flex-col gap-4">
-          <p className="font-stencil_one text-4xl font-bold uppercase xs:text-5xl md:text-6xl">
-            Pokédex
-          </p>
-        </div>
+      <Seo title="Pokédex | List" description="List of Pokédex" />
+      <div className="srz-layout">
         <div className="grid grid-cols-1 gap-2 py-10 sm:grid-cols-2">
           <div className="group relative select-none overflow-hidden sm:col-span-2">
             <Link to={`/pokedex/national`}>

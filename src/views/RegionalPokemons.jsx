@@ -7,7 +7,7 @@ import { fetchRegion } from "/src/api/region";
 import NoPokemonFound from "/src/components/NoPokemonFound";
 import PokemonModal from "/src/components/PokemonModal";
 import PokemonCard from "/src/components/PokemonCard";
-import PokedexList from "/src/components/PokedexList";
+import PokedexDropdown from "/src/components/PokedexDropdown";
 import SearchBar from "/src/components/SearchBar";
 import Seo from "/src/components/Seo";
 import Spinner from "/src/components/Spinner";
@@ -15,6 +15,7 @@ import {
   getIDFromURL,
   getCapitalizedString,
   filterPokemons,
+  getRegionName,
 } from "/src/utils/common";
 
 function RegionalPokemons() {
@@ -73,7 +74,10 @@ function RegionalPokemons() {
 
   return (
     <Fragment>
-      <Seo title={title} description="Pokémon" lang="en" meta={[]} />
+      <Seo
+        title={`Pokédex | ${getRegionName(region?.names)}`}
+        description={`${getRegionName(region?.names)} | Pokédex`}
+      />
       <div className="srz-layout py-10">
         <Fragment>
           {isRegionSuccess ? (
@@ -84,7 +88,7 @@ function RegionalPokemons() {
                 </h1>
               </div>
               <div className="z-40 my-5">
-                <PokedexList
+                <PokedexDropdown
                   pokedexList={region?.pokedexes}
                   pokemonEntries={pokedex?.pokemon_entries.length}
                   setPokedexID={setPokedexID}
