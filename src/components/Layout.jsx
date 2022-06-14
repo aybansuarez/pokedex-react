@@ -1,4 +1,5 @@
 import Header from "./Header";
+import Footer from "./Footer";
 import background from "/assets/background.png";
 
 function Layout({ children }) {
@@ -7,6 +8,7 @@ function Layout({ children }) {
       <div className="flex min-h-screen flex-col bg-gradient-to-r from-white">
         <Header />
         <main className="flex h-full w-full flex-1">{children}</main>
+        <Footer />
       </div>
     </div>
   );
