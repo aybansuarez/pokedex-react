@@ -26,7 +26,7 @@ function PokemonDetail() {
   );
 
   const isSuccess = isPokemonSuccess && isSpeciesSuccess;
-  console.log(species);
+
   return (
     <Fragment>
       <Seo title={name.toLocaleUpperCase()} description="Pokémon" />
