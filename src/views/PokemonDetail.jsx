@@ -6,11 +6,7 @@ import { fetchPokemonDetails, fetchPokemonSpecies } from "/src/api/pokemon";
 import Seo from "/src/components/Seo";
 import TypeIcon from "/src/components/TypeIcon";
 
-import {
-  getPokemonDescription,
-  getPokemonGenus,
-  getPokemonID,
-} from "/src/utils/common";
+import { getPokemonDescription, getPokemonGenus } from "/src/utils/common";
 
 function PokemonDetail() {
   const { name } = useParams();
@@ -18,7 +14,6 @@ function PokemonDetail() {
     ["pokemonDetails", name],
     fetchPokemonDetails(name)
   );
-
   const pokemonId = pokemon?.id;
 
   const { data: species, isSuccess: isSpeciesSuccess } = useQuery(
@@ -89,26 +84,34 @@ function PokemonDetail() {
                       </thead>
                       <tbody>
                         <tr>
-                          <td className="bg-white px-1 uppercase">Height</td>
-                          <td className="bg-white text-center font-bold">
-                            {pokemon.height}
+                          <td className="bg-white py-1 px-1 uppercase">
+                            Height
+                          </td>
+                          <td className="bg-white py-1 text-center font-bold">
+                            {pokemon.height / 10} m
                           </td>
                         </tr>
                         <tr>
-                          <td className="bg-white px-1 uppercase">Weight</td>
-                          <td className="bg-white text-center font-bold">
-                            {pokemon.weight}
+                          <td className="bg-white py-1 px-1 uppercase">
+                            Weight
+                          </td>
+                          <td className="bg-white py-1 text-center font-bold">
+                            {pokemon.weight / 10} kg
                           </td>
                         </tr>
                         <tr>
-                          <td className="bg-white px-1 uppercase">Color</td>
-                          <td className="bg-white text-center font-bold capitalize">
+                          <td className="bg-white py-1 px-1 uppercase">
+                            Color
+                          </td>
+                          <td className="bg-white py-1 text-center font-bold capitalize">
                             {species.color.name}
                           </td>
                         </tr>
                         <tr>
-                          <td className="bg-white px-1 uppercase">Habitat</td>
-                          <td className="bg-white text-center font-bold capitalize">
+                          <td className="bg-white py-1 px-1 uppercase">
+                            Habitat
+                          </td>
+                          <td className="bg-white py-1 text-center font-bold capitalize">
                             {species.habitat.name}
                           </td>
                         </tr>
@@ -134,8 +137,8 @@ function PokemonDetail() {
                               <td
                                 className={
                                   ability.is_hidden
-                                    ? "bg-slate-300 px-1"
-                                    : "bg-white px-1"
+                                    ? "bg-slate-300 px-1 py-1"
+                                    : "bg-white px-1 py-1"
                                 }
                               >
                                 <span className="capitalize">
@@ -169,10 +172,10 @@ function PokemonDetail() {
                     <tbody>
                       {pokemon.stats.map((stat, index) => (
                         <tr key={index}>
-                          <td className="bg-white px-1 uppercase">
+                          <td className="bg-white py-1 px-1 uppercase">
                             {stat.stat.name.replace("-", " ")}
                           </td>
-                          <td className="bg-white text-center font-bold">
+                          <td className="bg-white py-1 text-center font-bold">
                             {stat.base_stat}
                           </td>
                         </tr>

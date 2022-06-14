@@ -5,12 +5,7 @@ function TypeIcon({ type, className }) {
   return (
     <Fragment>
       <div className="relative flex flex-col items-center">
-        <img
-          src={getTypeIcon(type)}
-          className={className}
-          onMouseEnter={() => setShowTooltip(true)}
-          onMouseLeave={() => setShowTooltip(false)}
-        />
+        <img src={getTypeIcon(type)} className={className} />
       </div>
     </Fragment>
   );
