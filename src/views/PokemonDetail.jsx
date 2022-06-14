@@ -26,7 +26,7 @@ function PokemonDetail() {
   );
 
   const isSuccess = isPokemonSuccess && isSpeciesSuccess;
-
+  console.log(species);
   return (
     <Fragment>
       <Seo title={name.toLocaleUpperCase()} description="Pokémon" />
@@ -36,14 +36,14 @@ function PokemonDetail() {
             <div className="m-auto flex-1">
               <img
                 className="mx-auto w-3/4 lg:mx-0 lg:w-auto"
-                src={pokemon.sprites.other["official-artwork"].front_default}
+                src={pokemon?.sprites.other["official-artwork"].front_default}
               />
             </div>
             <div className="flex flex-1 flex-col gap-5">
               <div className="flex flex-1 flex-col items-center gap-2 text-center lg:items-start lg:text-left">
                 <p className="flex flex-col items-center gap-2 uppercase lg:flex-row">
                   <span className="font-stencil_one text-4xl font-black xs:text-5xl md:text-7xl">
-                    {species.name}
+                    {species?.name}
                   </span>
                 </p>
                 <p className="text-lg font-bold uppercase md:text-2xl">
@@ -52,7 +52,7 @@ function PokemonDetail() {
                 <p>{getPokemonDescription(species?.flavor_text_entries)}</p>
               </div>
               <div className="flex justify-center gap-x-2 lg:justify-start">
-                {pokemon.types.map((type, index) => {
+                {pokemon?.types.map((type, index) => {
                   return (
                     <span
                       key={index}
@@ -88,7 +88,7 @@ function PokemonDetail() {
                             Height
                           </td>
                           <td className="bg-white py-1 text-center font-bold">
-                            {pokemon.height / 10} m
+                            {pokemon?.height / 10} m
                           </td>
                         </tr>
                         <tr>
@@ -96,7 +96,7 @@ function PokemonDetail() {
                             Weight
                           </td>
                           <td className="bg-white py-1 text-center font-bold">
-                            {pokemon.weight / 10} kg
+                            {pokemon?.weight / 10} kg
                           </td>
                         </tr>
                         <tr>
@@ -104,7 +104,7 @@ function PokemonDetail() {
                             Color
                           </td>
                           <td className="bg-white py-1 text-center font-bold capitalize">
-                            {species.color.name}
+                            {species?.color.name}
                           </td>
                         </tr>
                         <tr>
@@ -112,7 +112,9 @@ function PokemonDetail() {
                             Habitat
                           </td>
                           <td className="bg-white py-1 text-center font-bold capitalize">
-                            {species.habitat.name}
+                            {species?.habitat
+                              ? species?.habitat.name
+                              : "Unknown"}
                           </td>
                         </tr>
                       </tbody>
@@ -131,7 +133,7 @@ function PokemonDetail() {
                         </tr>
                       </thead>
                       <tbody>
-                        {pokemon.abilities.map((ability, index) => {
+                        {pokemon?.abilities.map((ability, index) => {
                           return (
                             <tr key={index}>
                               <td
@@ -170,7 +172,7 @@ function PokemonDetail() {
                       </tr>
                     </thead>
                     <tbody>
-                      {pokemon.stats.map((stat, index) => (
+                      {pokemon?.stats.map((stat, index) => (
                         <tr key={index}>
                           <td className="bg-white py-1 px-1 uppercase">
                             {stat.stat.name.replace("-", " ")}
