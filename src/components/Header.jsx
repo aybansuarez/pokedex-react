@@ -6,7 +6,7 @@ import { MenuIcon, XIcon } from "@heroicons/react/outline";
 import logo from "/assets/logo.png";
 import githubLogo from "/assets/github.svg";
 
-export default function Example() {
+export default function Header() {
   return (
     <Popover className="relative z-50 select-none bg-slate-900">
       <div className="srz-layout flex items-center justify-between py-6">
