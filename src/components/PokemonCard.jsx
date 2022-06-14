@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 
 import { fetchPokemonDetails } from "/src/api/pokemon";
-import TypeIcon from "/src/components/TypeIcon";
 import { Fragment, useState, useEffect } from "react";
 import { getPokemonType, getPokemonID } from "/src/utils/common";
 import { getTypeIcon } from "/src/utils/getIcons";

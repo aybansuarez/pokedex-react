@@ -240,7 +240,7 @@ function PokemonModal({
                         <div className="flex flex-1 justify-between">
                           <button className="w-1/4 rounded-full focus:outline-none">
                             <Link
-                              to={`/pokedex/p/${details?.name}`}
+                              to={`/pokemon/${details?.name}`}
                               className="flex aspect-square w-full items-center justify-center rounded-full bg-slate-900 text-2xl font-bold text-white xs:text-4xl"
                             >
                               A
