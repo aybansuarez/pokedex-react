@@ -4,7 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 
 import App from "./App";
 import "./styles/global.scss";
-import { BrowserRouter } from "react-router-dom";
+import { HashRouter } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { ReactQueryDevtools } from "react-query/devtools";
 
@@ -14,9 +14,9 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <HelmetProvider>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
+        <HashRouter>
           <App />
-        </BrowserRouter>
+        </HashRouter>
         <ReactQueryDevtools />
       </QueryClientProvider>
     </HelmetProvider>
